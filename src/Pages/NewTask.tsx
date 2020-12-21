@@ -1,93 +1,62 @@
+import { useRef, useContext } from "react";
 import "../Styles/newTask.sass";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import IconButton from "@material-ui/core/IconButton";
-import CheckIcon from "@material-ui/icons/Check";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import { State } from "../TodosState";
+import { observer } from "mobx-react-lite";
+import Todo from "../models/Todo";
+import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles({
-  checked: {
-    color: "#ffcc97"
-  },
-  root: {
-    color: "#503e9d"
-  }
-});
+const EditTask: React.FC = observer(() => {
+  const todos = useContext(State);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLElement>(null);
+  const history = useHistory();
 
-const NewTask: React.FC = () => {
-  const { root, checked } = useStyles();
+  const handleOnClick = () => {
+    const title = titleRef.current?.innerText;
+    const description = descriptionRef.current?.innerText;
+    const defDescription =
+      "If you want, add a description to help remind you what to get done";
+    const newTodo = new Todo(
+      title!,
+      description === defDescription ? "" : description
+    );
+    todos.addTodo(newTodo);
+    history.push("/");
+  };
+
   return (
     <div className="new-task-page">
       <div className="new-task-page-top">
-        <ul className="new-task-page-top__progress">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-        <IconButton>
+        <IconButton component={Link} to="/">
           <ArrowForwardIcon className="new-task-page-top__arrow" />
         </IconButton>
       </div>
       <div className="new-task-page-content">
-        <h1 className="new-task-page-content__title">
-          Prep some more dribbble shots
+        <h1
+          className="new-task-page-content__title"
+          suppressContentEditableWarning
+          contentEditable
+          ref={titleRef}
+        >
+          Enter Your Title
         </h1>
-        <small className="new-task-page-content__subtitle">
-          This is an additional field of text that can be written to clarify the
-          task
+        <small
+          className="new-task-page-content__subtitle"
+          contentEditable
+          suppressContentEditableWarning
+          ref={descriptionRef}
+        >
+          If you want, add a description to help remind you what to get done
         </small>
-        <ul className="new-task-list">
-          <li>
-            <FormControlLabel
-              classes={{ label: "new-task-list__label" }}
-              control={
-                <Checkbox
-                  classes={{ checked: root, root: checked }}
-                  color="default"
-                  name="checkedA"
-                />
-              }
-              label="Buy all fruit groceries for the weekend"
-            />
-          </li>
-          <li>
-            <FormControlLabel
-              classes={{ label: "new-task-list__label" }}
-              control={
-                <Checkbox
-                  classes={{ checked: root, root: checked }}
-                  color="default"
-                  name="checkedA"
-                />
-              }
-              label="pick up a nintendo"
-            />
-          </li>
-          <li>
-            <FormControlLabel
-              classes={{ label: "new-task-list__label" }}
-              control={
-                <Checkbox
-                  classes={{ checked: root, root: checked }}
-                  color="default"
-                  name="checkedA"
-                />
-              }
-              label="submit today's invoice"
-            />
-          </li>
-        </ul>
       </div>
-      <div className="new-task-page-buttons">
-        <button className="new-task-page-buttons__begin">Begin Task</button>
-        <IconButton className="new-task-page-buttons__check">
-          <CheckIcon />
-        </IconButton>
-      </div>
+      <button onClick={handleOnClick} className="new-task-page__create-btn">
+        Create Task
+      </button>
     </div>
   );
-};
+});
 
-export default NewTask;
+export default EditTask;

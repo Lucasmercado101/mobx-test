@@ -1,5 +1,6 @@
 import Tasks from "./Pages/Tasks";
 import NewTask from "./Pages/NewTask";
+import EditTask from "./Pages/EditTask";
 import Container from "@material-ui/core/Container";
 import "./styles.css";
 import { Route } from "react-router-dom";
@@ -12,6 +13,9 @@ function App() {
       </Route>
       <Route exact path="/newtask">
         <NewTask />
+      </Route>
+      <Route exact path="/editTask/:id">
+        <EditTask />
       </Route>
     </Container>
   );

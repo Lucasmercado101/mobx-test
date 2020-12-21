@@ -1,42 +1,35 @@
-.new-task-page
+.edit-task-page
     padding: 10px
     margin: 0
     display: flex
     flex-direction: column
     height: 100%
-    &__create-btn
-        background: #fb4606
-        width: 100%
-        color: white
-        border: none
-        border-radius: 30px
-        font-size: 1.3rem
-        padding: 15px 0
-        cursor: pointer
 
-.new-task-page-content
+.edit-task-page-content
+    display: flex
+    flex-direction: column
     padding-left: 30px
     padding-right: 95px
     flex-grow: 1
     &__title
         margin: 0
         padding: 0
-        color: #8992b1
+        color: #503e9d
         font-size: 2.6rem
         line-height: 1
         word-break: break-word
-        border-bottom: medium solid #8992b1
+        border-bottom: medium solid#503e9d
     &__subtitle
         display: inline-block
         padding: 0
         margin: 0
         margin-top: 25px
         font-size: 1.2rem
-        color: #8992b1
+        color: #503e9d
         word-break: break-word
-        border-bottom: thin solid #8992b1
+        border-bottom: thin solid#503e9d
 
-.new-task-page-top
+.edit-task-page-top
     padding: 10px 30px
     margin: 0
     margin-bottom: 15px
@@ -48,7 +41,7 @@
         width: 30px !important
         color: #503e9d
 
-.new-task-list
+.edit-task-list
     margin: 0
     padding: 0
     margin-top: 25px
@@ -59,9 +52,31 @@
         padding-left: 5px
         font-weight: 700 !important
 
-.new-task-page-buttons
+.edit-task-page-buttons
     display: flex
     justify-content: space-between
     align-items: center
     margin-bottom: 15px
     padding: 0 10px
+    &__begin
+        background: #fb4606
+        width: 100%
+        color: white
+        border: none
+        border-radius: 30px
+        font-size: 1.3rem
+        padding: 15px 0
+        cursor: pointer
+    &__check
+        margin-left: 25px !important
+        background: #503e9d !important
+        height: 55px
+        width: 55px
+        *
+            color: white
+
+.edit-task-add-subtodo
+    background: #fb4606 !important
+    color: white !important
+    align-self: center
+    margin-top: 15px !important

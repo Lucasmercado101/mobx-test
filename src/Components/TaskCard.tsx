@@ -1,11 +1,13 @@
 import React from "react";
 import "../Styles/taskCard.sass";
 import Checkbox from "@material-ui/core/Checkbox";
+import Todo from "../models/Todo";
+import { observer } from "mobx-react-lite";
+import { Link } from "react-router-dom";
 
 type Props = {
   idx: number;
-  children: string;
-  completed?: boolean;
+  todo: Todo;
 };
 
 const computedContent = (text: string) => {
@@ -31,21 +33,28 @@ const computedContent = (text: string) => {
   return text;
 };
 
-const TaskCard: React.FC<Props> = ({ idx, children, completed }) => {
+const TaskCard: React.FC<Props> = observer(({ idx, todo }) => {
   const num = idx < 9 ? "0" + idx : idx;
-  //40
+  const completed = todo.isDone;
+
   return (
     <div className={`task-card ${completed ? " task-card__completed" : ""}`}>
       <span className="task-card__idx">{num}</span>
-      <p className="task-card__content">{computedContent(children)}</p>
+      <Link
+        to={`/editTask/${todo.id}`}
+        title={todo.title}
+        className="task-card__content"
+      >
+        {computedContent(todo.title)}
+      </Link>
       <Checkbox
+        onChange={() => todo.toggle()}
+        checked={completed}
         className="task-card__checkbox"
-        // checked={checked}
-        // onChange={handleChange}
         inputProps={{ "aria-label": "primary checkbox" }}
       />
     </div>
   );
-};
+});
 
 export default TaskCard;

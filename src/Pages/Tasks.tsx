@@ -1,10 +1,14 @@
-import { FC } from "react";
+import { useContext } from "react";
 import "../Styles/tasks.sass";
 import TaskCard from "../Components/TaskCard";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import { Link } from "react-router-dom";
+import { State } from "../TodosState";
+import { observer } from "mobx-react-lite";
 
-const Tasks: FC = () => {
+const Tasks: React.FC = observer(() => {
+  const todos = useContext(State).todos;
   return (
     <div id="tasks-page">
       <h1 id="notes-title-date">
@@ -12,28 +16,26 @@ const Tasks: FC = () => {
         <br /> 2020
       </h1>
       <ul className="tasks-list">
-        <li className="tasks-list__item">
-          <TaskCard completed idx={1}>
-            Don't forget to do the laundry
-          </TaskCard>
-        </li>
-        <li className="tasks-list__item">
-          <TaskCard idx={2}>
-            Pick up a Nintendo Switch for the kids at home
-          </TaskCard>
-        </li>
-        <li className="tasks-list__item">
-          <TaskCard idx={3}>Get groceries for the entire week</TaskCard>
-        </li>
+        {todos.map((todo, i) => (
+          <li className="tasks-list__item" key={todo.id}>
+            <TaskCard idx={i + 1} todo={todo} />
+          </li>
+        ))}
       </ul>
       <div className="add-new-task">
         <p className="add-new-task__title">Create a new Task</p>
-        <Fab className="add-new-task__button" color="primary" aria-label="add">
+        <Fab
+          component={Link}
+          to="newtask"
+          className="add-new-task__button"
+          color="primary"
+          aria-label="add"
+        >
           <AddIcon />
         </Fab>
       </div>
     </div>
   );
-};
+});
 
 export default Tasks;

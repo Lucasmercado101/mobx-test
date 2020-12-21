@@ -17,11 +17,16 @@
         font-size: 1.5rem
         overflow: hidden
         padding: 0
+        text-decoration: none
         margin: 0
+        &:hover
+            text-decoration: underline
         // max-height: 70px
     &__checkbox
+        color: gray !important
         padding: 0
         margin: 0
+        margin-left: auto !important
 
 .task-card__completed
     background: #503e9d
@@ -30,3 +35,5 @@
             color: white
         &__content
             color: white
+        &__checkbox
+            color: white !important
