@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,12 +20,20 @@ type Props = {
 
 const CheckTodo: React.FC<Props> = observer(({ data }) => {
   const { root, checked } = useStyles();
+  const ref = useRef<HTMLElement>();
+
   return (
     <FormControlLabel
       classes={{ label: "edit-task-list__label" }}
+      onInput={() => (data.label = ref.current!.innerText)}
+      suppressContentEditableWarning
+      contentEditable
+      ref={ref}
       control={
         <Checkbox
           classes={{ checked: root, root: checked }}
+          checked={data.isDone}
+          onChange={() => data.toggle()}
           color="default"
           name="checkedA"
         />

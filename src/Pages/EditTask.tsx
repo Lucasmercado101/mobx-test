@@ -66,17 +66,17 @@ const EditTask: React.FC = observer(() => {
           {todo?.description ||
             "This is an additional field of text that can be written to clarify the task"}
         </small>
-        <ul className="edit-task-list">
-          {todo?.checkTodos.map((todo) => (
-            <li>
-              <CheckboxTodo key={todo.id} data={todo} />
-            </li>
-          ))}
-        </ul>
-        <IconButton onClick={addSubTask} className="edit-task-add-subtodo">
-          <AddIcon />
-        </IconButton>
       </div>
+      <ul className="edit-task-list">
+        {todo?.checkTodos.map((todo) => (
+          <li key={todo.id}>
+            <CheckboxTodo data={todo} />
+          </li>
+        ))}
+      </ul>
+      <IconButton onClick={addSubTask} className="edit-task-add-subtodo">
+        <AddIcon />
+      </IconButton>
       <div className="edit-task-page-buttons">
         <button onClick={onDelete} className="edit-task-page-buttons__begin">
           Delete Task
