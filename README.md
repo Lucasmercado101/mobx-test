@@ -1,3 +1,9 @@
+Based off [Taskr by Stian](https://dribbble.com/shots/14147996-Taskr).
+
+I made this to learn the basics of [MobX](https://mobx.js.org/README.html)
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
